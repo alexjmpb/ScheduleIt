@@ -145,7 +145,7 @@ class UserDelete(APITestCase):
         self.user = User.objects.create_user(username='test', email='test@test.com', password='Test1234')
         self.me_url = reverse('authentication:appuser-me')
     
-    def test_user_delet(self):
+    def test_user_delete(self):
         self.client.force_authenticate(self.user)
         response = self.client.delete(self.me_url, {'current_password': 'Test1234'})
         self.assertEqual(response.status_code, 204)

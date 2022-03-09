@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'authentication.apps.AuthenticationConfig',
+    'calendar_app.apps.CalendarAppConfig',
 ]
 
 MIDDLEWARE = [
