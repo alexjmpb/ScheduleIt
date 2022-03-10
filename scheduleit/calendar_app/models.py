@@ -27,6 +27,11 @@ class AbstractCalendarObject(models.Model):
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        if not self.is_event:
+            self.start_date = self.due_date
+        super(AbstractCalendarObject, self).save(*args, **kwargs)
+
 
 class CalendarObject(AbstractCalendarObject):
     is_recurring = models.BooleanField(default=False)

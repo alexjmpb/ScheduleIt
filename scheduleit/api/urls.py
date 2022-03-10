@@ -3,5 +3,6 @@ from . import views as api_views
 
 urlpatterns = [
     path('', api_views.EndpointsView.as_view(), name='endpoints'),
-    path('auth/', include('authentication.urls'))
+    path('auth/', include('authentication.urls')),
+    path('calendar/', include('calendar_app.urls'))
 ]
