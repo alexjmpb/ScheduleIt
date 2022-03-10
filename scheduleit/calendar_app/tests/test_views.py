@@ -14,6 +14,11 @@ class CalendarTest(APITestCase):
             email='test@test.com', 
             password='Test1234'
         )
+        self.user2 = User.objects.create_user(
+            username='test2',
+            email='test2@test.com', 
+            password='Test1234'
+        )
         self.task = CalendarObject.objects.create(
             title='test task',
             description='test description',
@@ -31,6 +36,12 @@ class CalendarTest(APITestCase):
             created_by=self.user
         )
         
+    def test_calendar_objects_user(self):
+        self.client.force_authenticate(self.user2)
+        url = reverse('objects-list')
+        response = self.client.get(url)
+        self.assertTrue(len(response.data) == 0)
+
 
     def test_calendar_year(self):
         url = reverse('calendar-year', kwargs={'year': self.task.due_date.year})
