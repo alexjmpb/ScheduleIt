@@ -12,7 +12,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class CalendarObjectViewSet(viewsets.ModelViewSet):
-
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = CalendarSerializer
     
     def get_queryset(self):
@@ -21,7 +21,7 @@ class CalendarObjectViewSet(viewsets.ModelViewSet):
 
 class ExceptionViewSet(viewsets.ModelViewSet):
     serializer_class = ExceptionSerializer
-    queryset = CalendarObjectException.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return CalendarObjectException.objects.filter(created_by=self.request.user)
@@ -29,13 +29,14 @@ class ExceptionViewSet(viewsets.ModelViewSet):
 
 class RecurringPatternViewSet(viewsets.ModelViewSet):
     serializer_class = RecurringPatternSerializer
-    queryset = ObjectRecurrencePattern.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return ObjectRecurrencePattern.objects.filter(created_by=self.request.user)
 
 
 class CalendarMonthView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, month, year):
         calendar_object_query = CalendarObject.objects.filter(due_date__month=month, due_date__year=year, created_by=request.user)
         calendar_object_serializer = CalendarSerializer(calendar_object_query, many=True)
@@ -52,6 +53,7 @@ class CalendarMonthView(APIView):
 
 
 class CalendarYearView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, year):
         calendar_object_query = CalendarObject.objects.filter(due_date__year=year, created_by=request.user)
         calendar_object_serializer = CalendarSerializer(calendar_object_query, many=True)
@@ -68,6 +70,7 @@ class CalendarYearView(APIView):
 
 
 class CalendarDayView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request, month, year, day):
         calendar_object_query = CalendarObject.objects.filter(due_date__day=day, due_date__month=month, due_date__year=year, created_by=request.user)
         calendar_object_serializer = CalendarSerializer(calendar_object_query, many=True)

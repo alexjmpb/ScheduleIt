@@ -62,9 +62,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
         verbose_name=_("email address"),
-        validators=[
-            EmailValidator(message=_("Enter a valid email address")),
-        ]
     )
     image = models.ImageField(
         upload_to=user_image_path,

@@ -7,8 +7,13 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+	LOGOUT,
+	REGISTER_REQUEST,
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+	CLEAN_SUBMITTING,
 } from './authActionsTypes'
-import axiosInstance from '../../axios'
+import {axiosInstance, axiosInstanceUnauth} from '../../axios'
 
 
 const authSuccess = () => {
@@ -24,12 +29,14 @@ const authFail = () => {
 }
 
 export const auth = () => {
-	return (dispatch) => {
-		axiosInstance.post('/auth/jwt/verify/', {token: localStorage.getItem('access')})
+	return async (dispatch) => {
+		await axiosInstance.get('/auth/users/me/')
 			.then((response) => {
 				dispatch(authSuccess())
 			})
 			.catch((error) => {
+				localStorage.removeItem('access_token');
+				localStorage.removeItem('refresh_token');
 				dispatch(authFail())
 			})
 	}
@@ -44,12 +51,14 @@ const userRequest = () => {
 const userSuccess = (user) => {
 	return {
 		type: USER_SUCCESS,
+		payload: user
 	}
 }
 
-const userFail = () => {
+const userFail = (error) => {
 	return {
-		type: USER_FAIL,	
+		type: USER_FAIL,
+		payload: error
 	}
 }
 
@@ -58,10 +67,61 @@ export const getUser = () => {
 		dispatch(userRequest())
 		axiosInstance.get('/auth/users/me/')
 			.then((response) => {
-				dispatch(userRequest(response.data))
+				dispatch(userSuccess(response.data))
 			})
 			.catch((error) => {
-				dispatch(userFail())
+				dispatch(userFail(error))
 			})
+	}
+}
+
+export const loginRequest = () => {
+	return {
+		type: LOGIN_REQUEST
+	}
+}
+
+export const loginSuccess = (tokens) => {
+	return {
+		type: LOGIN_SUCCESS,
+		payload: tokens,
+	}
+}
+
+export const loginFail = (error) => {
+	return {
+		type: LOGIN_FAIL,
+		payload: error,
+	}
+}
+
+export const registerRequest = () => {
+	return {
+		type: REGISTER_REQUEST
+	}
+}
+
+export const registerSuccess = () => {
+	return {
+		type: REGISTER_SUCCESS,
+	}
+}
+
+export const registerFail = (errors) => {
+	return {
+		type: REGISTER_FAIL,
+		payload: errors,
+	}
+}
+
+export const logout = () => {
+	return {
+		type: LOGOUT
+	}
+}
+
+export const cleanSubmit = () => {
+	return {
+		type: CLEAN_SUBMITTING,
 	}
 }

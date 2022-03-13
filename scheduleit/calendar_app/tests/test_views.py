@@ -44,18 +44,22 @@ class CalendarTest(APITestCase):
 
 
     def test_calendar_year(self):
+        self.client.force_authenticate(self.user)
         url = reverse('calendar-year', kwargs={'year': self.task.due_date.year})
         response = self.client.get(url)
+        print(response.data)
         self.assertEqual(dict(response.data['calendar_objects'][0])['title'], self.task.title)
         self.assertTrue(2 > len(response.data['calendar_objects']))
 
     def test_calendar_month(self):
+        self.client.force_authenticate(self.user)
         url = reverse('calendar-month', kwargs={'year': self.task.due_date.year, 'month': self.task.due_date.month})
         response = self.client.get(url)
         self.assertEqual(dict(response.data['calendar_objects'][0])['title'], self.task.title)
         self.assertTrue(2 > len(response.data['calendar_objects']))
 
     def test_calendar_day(self):
+        self.client.force_authenticate(self.user)
         url = reverse('calendar-day', kwargs={'year': self.task.due_date.year, 'month': self.task.due_date.month, 'day': self.task.due_date.day})
         response = self.client.get(url)
         self.assertEqual(dict(response.data['calendar_objects'][0])['title'], self.task.title)

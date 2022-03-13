@@ -1,3 +1,4 @@
+import { axiosInstance } from '../../axios';
 import {
     AUTH_SUCCESS,
     AUTH_FAIL,
@@ -7,32 +8,45 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+	LOGOUT,
+	REGISTER_REQUEST,
+	REGISTER_SUCCESS,
+	REGISTER_FAIL,
+    CLEAN_SUBMITTING,
 } from './authActionsTypes'
 
 const initialState = {
     access: localStorage.getItem('access_token'),
     refresh: localStorage.getItem('refresh_token'),
-    isAuth: false,
+    isAuth: null,
     user: null,
     user_loading: false,
     login_loading: false,
+    submitLoading: false,
+    errors: [],
+    validators: [],
 }
 
 function authReducer(state = initialState, action) {
     switch(action.type) {
+        case CLEAN_SUBMITTING:
+            return {
+                ...state,
+                submitLoading: false,
+            }
         case AUTH_SUCCESS:
             return {
                 ...state,
-                isAuth: true
+                isAuth: true,
+                errors: []
             }
         case AUTH_FAIL:
-            localStorage.removeItem('access_token');
-            localStorage.removeItem('refresh_token');
             return {
                 ...state,
                 isAuth: false,
                 access: null,
-                refersh: null
+                refersh: null,
+                errors: []
             }
         case USER_REQUEST:
             return {
@@ -43,7 +57,8 @@ function authReducer(state = initialState, action) {
             return {
                 ...state,
                 user_loading: false,
-                user: action.payload
+                user: action.payload,
+                errors: [],
             }
         case USER_FAIL:
             return {
@@ -54,23 +69,45 @@ function authReducer(state = initialState, action) {
         case LOGIN_REQUEST:
             return {
                 ...state,
-                login_loading: true
+                submitLoading: true
             }
         case LOGIN_SUCCESS:
-            localStorage.setItem('access_token', action.payload.access);
-            localStorage.setItem('refresh_token', action.payload.refresh);
             return {
                 ...state,
-                login_loading: false,
+                isAuth: true,
                 access: action.payload.access,
-                refersh: action.payload.refresh
+                refersh: action.payload.refresh,
+                errors: [],
             }
         case LOGIN_FAIL:
             return {
                 ...state,
-                login_loading: false,
                 access: null,
-                refersh: null
+                refersh: null,
+                errors: action.payload
+            }
+        case REGISTER_REQUEST:
+            return {
+                ...state,
+                submitLoading: true
+            }
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+            }
+        case REGISTER_FAIL:
+            return {
+                ...state,
+                errors: action.payload,
+            }
+        case LOGOUT:
+            return {
+                ...state,
+                user: null,
+                access: null,
+                refresh: null,
+                isAuth: false
             }
         default:
             return state
