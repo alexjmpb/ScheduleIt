@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { ReactComponent as AuthImage2 } from '../svg/login-image2.svg'
 import Form from '../components/Form'
 import Input from '../components/Input'
-import { registerSuccess, registerFail, registerRequest, cleanSubmit } from '../state/auth/authActions'
+import { registerSuccess, registerFail, cleanSubmit, submitRequest } from '../state/auth/authActions'
 import { axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
 
@@ -28,7 +28,7 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {  
     e.preventDefault();
-    dispatch(registerRequest())
+    dispatch(submitRequest())
     await axiosInstanceUnauth.post('/auth/users/', userInfo)
       .then((response) => {
         dispatch(registerSuccess());

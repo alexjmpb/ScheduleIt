@@ -9,6 +9,7 @@ import {
     LOGIN_FAIL,
 	LOGOUT,
 	REGISTER_REQUEST,
+  REQUEST_SUBMIT,
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	CLEAN_SUBMITTING,
@@ -75,12 +76,6 @@ export const getUser = () => {
 	}
 }
 
-export const loginRequest = () => {
-	return {
-		type: LOGIN_REQUEST
-	}
-}
-
 export const loginSuccess = (tokens) => {
 	return {
 		type: LOGIN_SUCCESS,
@@ -95,9 +90,9 @@ export const loginFail = (error) => {
 	}
 }
 
-export const registerRequest = () => {
+export const submitRequest = () => {
 	return {
-		type: REGISTER_REQUEST
+		type: REQUEST_SUBMIT
 	}
 }
 

@@ -13,6 +13,7 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
     CLEAN_SUBMITTING,
+    REQUEST_SUBMIT
 } from './authActionsTypes'
 
 const initialState = {
@@ -66,7 +67,7 @@ function authReducer(state = initialState, action) {
                 user_loading: false,
                 user: null
             }
-        case LOGIN_REQUEST:
+        case REQUEST_SUBMIT:
             return {
                 ...state,
                 submitLoading: true
@@ -85,11 +86,6 @@ function authReducer(state = initialState, action) {
                 access: null,
                 refersh: null,
                 errors: action.payload
-            }
-        case REGISTER_REQUEST:
-            return {
-                ...state,
-                submitLoading: true
             }
         case REGISTER_SUCCESS:
             return {

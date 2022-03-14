@@ -9,7 +9,6 @@ const Form = ({ children, onSubmit, validators }) => {
       {
         validators != []
         &&
-
         <ul className="validators">
           {
             validators['non_field_errors']

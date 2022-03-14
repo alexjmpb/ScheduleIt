@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import Form from '../components/Form'
 import Input from '../components/Input'
-import { loginSuccess, loginFail, loginRequest, cleanSubmit } from '../state/auth/authActions'
+import { loginSuccess, loginFail, cleanSubmit, submitRequest } from '../state/auth/authActions'
 import { Link } from 'react-router-dom'
-import { ReactComponent as AuthImage1 } from '../svg/login-image1.svg'
+import { ReactComponent as AuthImage } from '../svg/login-image1.svg'
 import { axiosInstance, axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
+import LoadingLoop from '../components/loading/LoadingLoop'
 
 const LoginPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -22,7 +23,7 @@ const LoginPage = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(loginRequest())
+    dispatch(submitRequest())
     await axiosInstanceUnauth.post('/auth/jwt/create/', userInfo)
       .then((response) => {
         localStorage.setItem('access_token', response.data.access);
@@ -57,7 +58,7 @@ const LoginPage = () => {
         </div>
       </main>
       <div className="auth-image flex">
-        <AuthImage1/>
+        <AuthImage/>
       </div>
     </React.Fragment>
   )

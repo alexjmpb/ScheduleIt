@@ -6,7 +6,7 @@ const Input = (props) => {
 		<React.Fragment>
 			<div className="form__wrapper flex">
 				<div className="form__field">
-						<input {...props} id={props.name} className="form__input"/>
+						<input {...props} id={props.name} className="form__input" invalid={props.validators[props.name] ? "true" : "false"}/>
 						<label htmlFor={props.name}>{props.placeholder}</label>
 				</div>
 				{
@@ -14,7 +14,7 @@ const Input = (props) => {
 					&&
 					props.validators[props.name]
 					&&
-					<ul className='props.validators'>
+					<ul className='validators'>
 					{
 						props.validators[props.name].map((validator, index) => 
 							<li key={index} className='validator'>

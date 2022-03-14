@@ -1,16 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { ReactComponent as Logo } from '../svg/scheduleit-logo.svg'
+import { ReactComponent as Menu } from '../svg/menu-icon.svg'
 
-const Header = () => {
+const Header = ({ onClick }) => {
   const user = useSelector(state => state.auth.user)
+  const currentPath = useLocation().pathname;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const routeMatch = (route) => {
+    return (currentPath === route ? true : false)
+  }
+
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [currentPath])
 
   return (
-    <div>
-      <div>Header</div>
-      <div>{user?.username}</div>
-      <Link to='/logout/'>Log Out</Link>
-    </div>
+    <header className='header flex'>
+      <div className="header__brand ">
+        <Link to="/" className='link flex'>
+          <Logo className="logo"/>
+          <h1 className='brand'>ScheduleIt!</h1>
+        </Link>
+      </div>
+      <Menu className="header__menu" onClick={e => setMenuOpen(!menuOpen)}/>
+      <nav className={'nav flex ' + (menuOpen ? 'nav--active' : '')}>
+        <ul className="nav__links">
+          <li>
+            <Link to="/"  className={'nav__link ' + (routeMatch('/') ? 'nav__link--active' : '')}>
+              <h1>Home</h1>
+            </Link>
+          </li>
+        </ul>
+        <div className='nav__auth flex'>
+          <Link to="/profile/" className="nav__user link flex">
+           <img src={user?.image} alt="" className='image image-round image-medium'/>
+          </Link>
+          <Link to="/profile/" className="nav__user link flex">
+            <h2>{user?.username}</h2>
+          </Link>
+          <Link to='/logout/' className='link button'>Log Out</Link>
+        </div>
+      </nav>
+      
+    </header>
   )
 }
 

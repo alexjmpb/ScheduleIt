@@ -189,7 +189,8 @@ EMAIL_HOST_PASSWORD = env('EMAIL_PASS')
 EMAIL_USE_TLS = True
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SEND_CONFIRMATION_EMAIL': True,
     'USER_CREATE_PASSWORD_RETYPE': True,
