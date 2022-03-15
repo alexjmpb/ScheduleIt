@@ -53,11 +53,15 @@ const RegisterPage = () => {
     <React.Fragment>
       <main className='auth flex'>
         <h1 className='brand-big'>ScheduleIt!</h1>
-        <Form onSubmit={e => handleSubmit(e)} validators={validators}>
-          <Input name="username" placeholder="Username" onChange={handleChange} validators={validators}/>
-          <Input name="email" placeholder="Email" type="email" onChange={handleChange} validators={validators}/>
-          <Input name="password" placeholder="Password" type="password" onChange={handleChange} validators={validators}/>
-          <Input name="re_password" placeholder="Repeat Password" type="password" onChange={handleChange} validators={validators}/>
+        <Form 
+          onSubmit={handleSubmit}
+          validators={validators}
+          onChange={handleChange}
+        >
+          <Input name="username" placeholder="Username"/>
+          <Input name="email" placeholder="Email" type="email"/>
+          <Input name="password" placeholder="Password" type="password"/>
+          <Input name="re_password" placeholder="Repeat Password" type="password"/>
           <Submit className='button' value="Sign In"/>
         </Form>
         <div className="auth__links flex">

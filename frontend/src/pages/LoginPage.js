@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as AuthImage } from '../svg/login-image1.svg'
 import { axiosInstance, axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
-import LoadingLoop from '../components/loading/LoadingLoop'
 import { useAlert } from 'react-alert'
 
 const LoginPage = () => {
@@ -50,9 +49,13 @@ const LoginPage = () => {
     <React.Fragment>
       <main className='auth flex'>
         <h1 className='brand-big'>ScheduleIt!</h1>
-        <Form onSubmit={handleSubmit} validators={validators}>
-            <Input name="username" type="text" placeholder="Username" onChange={handleChange} validators={validators}/>
-            <Input name="password" type="password" placeholder="Password" onChange={handleChange} validators={validators}/>
+        <Form 
+          onSubmit={handleSubmit} 
+          validators={validators}  
+          onChange={handleChange}
+        >
+            <Input name="username" type="text" placeholder="Username"/>
+            <Input name="password" type="password" placeholder="Password"/>
             <Submit type="text" className='button' value="Log In"/>
         </Form>
         <div className="auth__links flex">

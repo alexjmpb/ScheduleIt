@@ -23,7 +23,7 @@ const authSuccess = () => {
 	}
 }
 
-const authFail = () => {
+export const authFail = () => {
 	return {
 		type: AUTH_FAIL,	
 	}

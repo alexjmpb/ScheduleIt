@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { ReactComponent as Logo } from '../svg/scheduleit-logo.svg'
 import { ReactComponent as Menu } from '../svg/menu-icon.svg'
+import LoadingNavAuth from './loading/LoadingNavAuth'
 
 const Header = ({ onClick }) => {
   const user = useSelector(state => state.auth.user)
+  const userLoading = useSelector(state => state.auth.user_loading)
   const currentPath = useLocation().pathname;
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -35,13 +37,20 @@ const Header = ({ onClick }) => {
           </li>
         </ul>
         <div className='nav__auth flex'>
-          <Link to="/profile/" className="nav__user link flex">
-           <img src={user?.image} alt="" className='image image-round image-medium'/>
-          </Link>
-          <Link to="/profile/" className="nav__user link flex">
-            <h2>{user?.username}</h2>
-          </Link>
-          <Link to='/logout/' className='link button'>Log Out</Link>
+          {
+            !userLoading ?
+            <React.Fragment>
+              <Link to="/profile/" className="nav__user link flex">
+              <img src={user?.image} alt="" className='image image-round image-medium'/>
+              </Link>
+              <Link to="/profile/" className="nav__user link flex">
+                <h2>{user?.username}</h2>
+              </Link>
+              <Link to='/logout/' className='link button'>Log Out</Link>
+            </React.Fragment>
+            :
+            <LoadingNavAuth/>
+          }
         </div>
       </nav>
       

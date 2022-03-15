@@ -19,8 +19,6 @@ const ModalBox = ({ children, className='modal-parent', open=false, handleClose 
 			document.body.removeChild(element);
 		}
 	}, []);
-
-	console.log(children)
 	
 	return (
 		open

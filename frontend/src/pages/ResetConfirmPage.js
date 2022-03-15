@@ -55,9 +55,13 @@ const ResetConfirmPage = () => {
       <div className="auth flex">
         <h1 className='brand-big'>ScheduleIt!</h1>
         <p>Type your new password</p>
-        <Form validators={validators} onSubmit={handleSubmit}>
-          <Input validators={validators} name="new_password" placeholder="New password" type="password" onChange={handleChange}/>
-          <Input validators={validators} name="re_new_password" placeholder="Repeat new password" type="password" onChange={handleChange}/>
+        <Form 
+          validators={validators} 
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+        >
+          <Input validators={validators} name="new_password" placeholder="New password" type="password"/>
+          <Input validators={validators} name="re_new_password" placeholder="Repeat new password" type="password"/>
           <Submit value="Reset Password" className="button"/>
         </Form>
         <div className="auth-links">

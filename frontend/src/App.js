@@ -15,6 +15,8 @@ import { ReactComponent as SuccessIcon } from './svg/success-icon.svg'
 import { ReactComponent as AlertIcon } from './svg/alert-icon.svg'
 import { ReactComponent as ErrorIcon } from './svg/error-icon.svg'
 import { ReactComponent as CloseIcon } from './svg/close-icon.svg'
+import ProfilePage from './pages/ProfilePage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
 
 function App() {
   const options = {
@@ -44,6 +46,8 @@ function App() {
                 <Route path="/" element={<Layout/>}>
                   <Route index element={<HomePage/>}/>
                   <Route path='/logout/' element={<LogoutPage/>}/>
+                  <Route path='/profile/' element={<ProfilePage/>}/>
+                  <Route path='/change-password/' element={<ChangePasswordPage/>}/>
                   <Route path='*' element={<main className='page'>Not found</main>}/>
                 </Route>
                 <Route path="/" element={<AuthLayout/>}>

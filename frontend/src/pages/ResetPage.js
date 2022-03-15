@@ -49,8 +49,12 @@ const ResetPage = () => {
         <BackButton/>
         <h1 className='brand-big'>ScheduleIt!</h1>
         <p>Enter your email to receive the reset link.</p>
-        <Form validators={validators} onSubmit={handleSubmit}>
-          <Input name="email" placeholder="Email" validators={validators} onChange={handleChange}/>
+        <Form 
+          validators={validators} 
+          onSubmit={handleSubmit} 
+          onChange={handleChange}
+        >
+          <Input name="email" placeholder="Email"/>
           <Submit className="button" value="Send Email"/>
         </Form>
       </div>
