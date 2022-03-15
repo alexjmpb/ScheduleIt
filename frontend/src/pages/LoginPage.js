@@ -8,6 +8,7 @@ import { ReactComponent as AuthImage } from '../svg/login-image1.svg'
 import { axiosInstance, axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
 import LoadingLoop from '../components/loading/LoadingLoop'
+import { useAlert } from 'react-alert'
 
 const LoginPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -16,6 +17,7 @@ const LoginPage = () => {
   })
   const dispatch = useDispatch();
   const [validators, setValidators] = useState([]);
+  const alert = useAlert();
 
   function handleChange(e) {
     setUserInfo({...userInfo, [e.target.name]:e.target.value});
@@ -29,7 +31,8 @@ const LoginPage = () => {
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);
         axiosInstance.defaults.headers['Authorization'] = `JWT ${response.data.access}`
-        dispatch(loginSuccess(response.data))
+        dispatch(loginSuccess(response.data));
+        alert.success('Logged in successfully');
       })
       .catch((error) => {
         dispatch(loginFail(error.response.data))

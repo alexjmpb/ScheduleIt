@@ -515,7 +515,45 @@ label {
   align-items: center;
 }
 
-/* --END HEADER */
+/* --END HEADER-- */
+
+/* --ALERTS-- */
+
+.alert {
+  background-color: var(--bg-clr-accent);
+  border-radius: 5px;
+  padding: .5em 1em;
+  margin: .5em;
+}
+
+.alert button {
+  background-color: transparent;
+  border: none;
+}
+
+.alert--success {
+  background-color: var(--bg-clr-accent-2);
+}
+
+.alert--error {
+  background-color: var(--bg-clr-accent-3);
+}
+
+.alert__icon {
+  fill: var(--font-clr-white);
+}
+
+.alert__message {
+  color: var(--font-clr-white);
+}
+
+.alert__close {
+  fill: var(--font-clr-white);
+  cursor: pointer;
+  cursor: pointer;
+}
+
+/* --END ALERTS-- */
 
 @media screen and (max-width: 600px) {
 
@@ -550,7 +588,6 @@ label {
 
   .page {
     flex-basis: auto;
-    height: 5000em;
     margin: 0;
   }
 
@@ -562,6 +599,7 @@ label {
     position: fixed;
     top: var(--nav-bar-size-mobile);
     right: 0;
+    width: 70vw;
     height: calc(100vh - var(--nav-bar-size-mobile));
     padding: 1em;
     background-color: var(--bg-clr-1);

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { axiosInstanceUnauth } from '../axios';
-import ModalBox, {ModalBody, ModalHeader} from '../components/modals/ModalBox'
-import ProfilePage from './LoginPage';
+import { useDispatch } from 'react-redux'
+import { cleanSubmit } from '../state/auth/authActions';
 import Form from '../components/Form';
 import Input from '../components/Input';
 import Submit from '../components/Submit';
 import { ReactComponent as AuthImage } from '../svg/login-image5.svg'
+import { useAlert } from 'react-alert';
 
 const ResetConfirmPage = () => {
   const params = useParams();
@@ -15,7 +16,8 @@ const ResetConfirmPage = () => {
     re_new_password: ''
   })
   const [validators, setValidators] = useState([])
-
+  const dispatch = useDispatch();
+  const alert = useAlert();
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -33,6 +35,7 @@ const ResetConfirmPage = () => {
       token: params.token,
     })
     .then((response) => {
+      alert.success('Password reset succesful')
       navigate('/login/')
     })
     .catch((error) => {
@@ -40,6 +43,12 @@ const ResetConfirmPage = () => {
       else setValidators(error.response.data);
     })
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanSubmit());
+    }
+  })
 
   return (
     <React.Fragment>

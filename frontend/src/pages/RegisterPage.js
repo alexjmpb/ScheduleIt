@@ -7,6 +7,7 @@ import Input from '../components/Input'
 import { registerSuccess, registerFail, cleanSubmit, submitRequest } from '../state/auth/authActions'
 import { axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
+import { useAlert } from 'react-alert'
 
 const RegisterPage = () => {
   const [userInfo, setUserInfo] = useState({
@@ -18,6 +19,7 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [validators, setValidators] = useState([]);
+  const alert = useAlert();
 
   function handleChange(e) {
     setUserInfo({
@@ -33,6 +35,7 @@ const RegisterPage = () => {
       .then((response) => {
         dispatch(registerSuccess());
         navigate('/login/');
+        alert.success('Registered successfully')
       })
       .catch((error) => {
         dispatch(registerFail(error.response.data));

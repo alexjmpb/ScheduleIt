@@ -7,6 +7,7 @@ import Submit from '../components/Submit'
 import { axiosInstanceUnauth } from '../axios'
 import { submitRequest, cleanSubmit } from '../state/auth/authActions'
 import { ReactComponent as AuthImage } from '../svg/login-image4.svg'
+import { useAlert } from 'react-alert'
 
 const ResetPage = () => {
   const [validators, setValidators] = useState([]);
@@ -18,17 +19,20 @@ const ResetPage = () => {
   function handleChange(e) {
     setEmail({...email, [e.target.name]:e.target.value});
   }
-  console.log(validators)
+  const alert = useAlert();
 
   async function handleSubmit(e) {
     e.preventDefault();
     dispatch(submitRequest())
     await axiosInstanceUnauth.post('/auth/users/reset_password/', email)
       .then((response) => {
+        alert.success('Email sent successfully')
+        setValidators([])
         dispatch(cleanSubmit());
       })
       .catch((error) => {
         if (error.response.data['email']) setValidators(error.response.data)
+        else if (error.response.status === 429) setValidators({detail: "Maximum number of attemps reached. Please try again later"})
         else setValidators({detail: "Invalid email or not found"})
       })
   }
