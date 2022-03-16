@@ -1,5 +1,5 @@
 import './App.css';
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import store from './state/store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage';
@@ -17,6 +17,7 @@ import { ReactComponent as ErrorIcon } from './svg/error-icon.svg'
 import { ReactComponent as CloseIcon } from './svg/close-icon.svg'
 import ProfilePage from './pages/ProfilePage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
+import { useEffect } from 'react';
 
 function App() {
   const options = {
@@ -33,6 +34,7 @@ function App() {
       <button onClick={close}>{<CloseIcon  className="alert__close"/>}</button>
     </div>
   )
+
 
   return (
     <Provider store={store}>

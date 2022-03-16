@@ -13,6 +13,7 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	CLEAN_SUBMITTING,
+	CHANGE_THEME,
 } from './authActionsTypes'
 import {axiosInstance, axiosInstanceUnauth} from '../../axios'
 
@@ -118,5 +119,11 @@ export const logout = () => {
 export const cleanSubmit = () => {
 	return {
 		type: CLEAN_SUBMITTING,
+	}
+}
+
+export const changeTheme = () => {
+	return {
+		type: CHANGE_THEME
 	}
 }

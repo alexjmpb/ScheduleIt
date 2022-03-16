@@ -274,6 +274,37 @@ ul, li {
   fill: var(--bg-clr-accent);
 }
 
+.theme-button {
+  position: relative;
+  padding: 0 .3em;
+  height: 1.5em;
+  display: flex;
+  align-items: center;
+  aspect-ratio: 2;
+  border-radius: 15px;
+  background-color: #a5a5a5;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.theme-button::after {
+  content: '';
+  height: 80%;
+  position: relative;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  background-color: white;
+  transition: transform .3s;
+}
+
+.theme-button.dark {
+  background-color: var(--bg-clr-accent-2);
+}
+
+.theme-button.dark::after {
+  transform: translateX(100%);
+}
+
 .loading-loop {
   animation: spin 1s infinite linear;
   width: var(--loading-loop-size, 1rem);

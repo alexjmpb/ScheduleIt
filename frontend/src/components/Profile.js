@@ -7,7 +7,7 @@ import Form from './Form';
 import Input from './Input';
 import Submit from './Submit';
 import { axiosInstance } from '../axios';
-import { cleanSubmit, getUser, submitRequest } from '../state/auth/authActions';
+import { changeTheme, cleanSubmit, getUser, submitRequest } from '../state/auth/authActions';
 import { useAlert } from 'react-alert';
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import ModalBox, { ModalBody, ModalFooter, ModalHeader } from './modals/ModalBox';
@@ -20,6 +20,8 @@ const Profile = ({ onClick }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
+  const dark = useSelector(state => state.auth.dark);
+  console.log(Boolean(localStorage.getItem('dark')))
 
   const [editing, setEditing] = useState(false);
   const [validators, setValidators] = useState([]);
@@ -100,6 +102,11 @@ const Profile = ({ onClick }) => {
         <h1 className="component__title">
           Profile
         </h1>
+        <div className="theme-changer" style={{marginLeft: 'auto'}}>
+          Dark Mode
+          <div className={"theme-button " + (dark ? 'dark' : '')} onClick={e => {dispatch(changeTheme())}}>
+          </div> 
+        </div>
       </div>
       {
         !userLoading ?

@@ -13,7 +13,8 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
     CLEAN_SUBMITTING,
-    REQUEST_SUBMIT
+    REQUEST_SUBMIT,
+    CHANGE_THEME
 } from './authActionsTypes'
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
     submitLoading: false,
     errors: [],
     validators: [],
+    dark: (localStorage.getItem('dark') === 'true' ? true : false)
 }
 
 function authReducer(state = initialState, action) {
@@ -104,6 +106,12 @@ function authReducer(state = initialState, action) {
                 access: null,
                 refresh: null,
                 isAuth: false
+            }
+        case CHANGE_THEME:
+            localStorage.setItem('dark', !state.dark)
+            return {
+                ...state,
+                dark: !state.dark
             }
         default:
             return state
