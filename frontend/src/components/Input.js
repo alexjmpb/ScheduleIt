@@ -7,7 +7,7 @@ const Input = (props) => {
 			<div className="form__wrapper flex">
 				<div className="form__field">
 						<input {...props} id={props.name} className="form__input" invalid={props.validators[props.name] ? "true" : "false"}/>
-						<label htmlFor={props.name}>{props.placeholder}</label>
+						<label htmlFor={props.name} className="form__label form__label--date">{props.placeholder}</label>
 				</div>
 				{
 					props.validators != []

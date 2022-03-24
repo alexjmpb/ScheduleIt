@@ -1,34 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 :root {
     --ff-primary: 'Raleway', sans-serif;
     --ff-secondary: 'Roboto', sans-serif;
 
-    --font-clr-accent-1: #109C8B;
-    --font-clr-white: white;
-    --font-clr-black: #111111;
-    --font-clr-primary: #283030;
-    --font-clr-1: #4D5C5C;
-    --font-clr-2: #314D4F;
-    --font-clr-3: #404444;
-    --font-clr-validator: #c33;
-
-    --bg-clr-unfocus: #43434359;
-    --bg-clr-accent: #109C8B;
-    --bg-clr-accent-2: #36b856;
-    --bg-clr-accent-3: #dd4646;
-    --bg-clr-accent-lighter: #15BEAA;
-    --bg-clr-1: #FFFFFF;
-    --bg-clr-2: #F5F5F5;
-    --bg-clr-3: #ECECEC;
-    --validator-border-clr: rgb(228, 99, 99);
-    --bg-clr-validator: #fee;
-    --border-clr: #C7C7C7;
-    --input-clr: #FFF;
-    --input-border-clr: #a5a5a5;
-    --input-border-accent: #109C8B;
-		--input-font: #283030;
+    --validator-border-clr: rgb(216, 66, 66);
+    --bg-clr-validator: rgba(255, 0, 0, 0.097);
 
     --shadow-clr-1: rgba(0, 0, 0, 0.07);
     --shadow-clr-2: rgba(0, 0, 0, 0.2);
@@ -36,49 +15,33 @@
     --nav-bar-size: 17em;
     --nav-bar-size-mobile: 4rem;
 
+    --font-clr-accent--1:  #109C8B;
+    --font-clr-white:  white;
+    --font-clr-black:  #111111;
+    --font--clr-primary:  #283030;
+    --font-clr-1:  #5e6d6d;
+    --font-clr-2:  #283f41;
+    --font-clr-3:  #323535;
+    --font-clr-validator:  #c33;
+    --bg-clr-unfocus:  #43434359;
+    --bg-clr-accent:  #109C8B;
+    --bg-clr-accent--2:  #36b856;
+    --bg-clr-accent--3:  #dd4646;
+    --bg-clr-accent--lighter:  #15BEAA;
+    --bg-clr-1:  #FFFFFF;
+    --bg-clr-2:  #F5F5F5;
+    --bg-clr-3:  #ECECEC;
+    --border-clr:  #C7C7C7;
+    --input-clr:  #FFF;
+    --input-border--clr:  #a5a5a5;
+    --input-border--accent:  #109C8B;
+    --input-font:  #283030;
+    --filter-svg--1:  invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
+    --filter-svg--2:  invert(100%) sepia(43%) saturate(1032%) hue-rotate(174deg) brightness(104%) contrast(108%);
+    --filter-svg--3:  invert(49%) sepia(68%) saturate(475%) hue-rotate(123deg) brightness(86%) contrast(100%);
+
     --filter-svg-1: invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
-    --filter-svg-2: invert(100%) sepia(43%) saturate(1032%) hue-rotate(174deg) brightness(104%) contrast(108%);
-    --filter-svg-3: invert(49%) sepia(68%) saturate(475%) hue-rotate(123deg) brightness(86%) contrast(100%);
 }
-
-/* :root {
-    --ff-primary: 'Raleway', sans-serif;
-    --ff-secondary: 'Roboto', sans-serif;
-
-    --font-clr-accent-1: #109C8B;
-    --font-clr-white: white;
-    --font-clr-black: #111111;
-    --font-clr-1: #7A8C8D;
-    --font-clr-2: #BACFCA;
-    --font-clr-3: #404444;
-    --font-clr-validator: #ff5353;
-
-    --bg-clr-unfocus: #43434359;
-    --bg-clr-accent: #109C8B;
-    --bg-clr-accent-2: #36b856;
-    --bg-clr-accent-3: #dd4646;
-    --bg-clr-accent-lighter: #15BEAA;
-    --bg-clr-1: #111111;
-    --bg-clr-2: #353535;
-    --bg-clr-3: #1E1E1E ;
-    --border-clr: #C7C7C7;
-    --input-clr: #353535;
-    --input-placeholder: #5c5c5c;
-    --input-border-clr: #353535;
-    --input-border-accent: #109C8B;
-    --input-font: #889292;
-
-    --shadow-clr-1: rgba(0, 0, 0, 0.07);
-    --shadow-clr-2: rgba(0, 0, 0, 0.2);
-
-    --nav-bar-size: 17em;
-    --nav-bar-size-mobile: 4rem;
-
-    --filter-svg-1: invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
-    --filter-svg-2: invert(100%) sepia(43%) saturate(1032%) hue-rotate(174deg) brightness(104%) contrast(108%);
-    --filter-svg-3: invert(49%) sepia(68%) saturate(475%) hue-rotate(123deg) brightness(86%) contrast(100%);
-} */
-
 
 .App {
   display: flex;
@@ -269,6 +232,11 @@ ul, li {
 
 .back-button {
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.back-button svg {
   width: 2rem;
   height: 2rem;
   fill: var(--bg-clr-accent);
@@ -303,6 +271,12 @@ ul, li {
 
 .theme-button.dark::after {
   transform: translateX(100%);
+}
+
+.icon-button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
 
 .loading-loop {
@@ -471,7 +445,7 @@ label, .form__input {
   opacity: 0;
 }
 
-label {
+.form__label {
 	position: absolute;
 	left: .5em;
 	color: var(--input-placeholder);
@@ -593,6 +567,10 @@ label {
   width: fit-content;
 }
 
+.nav__links li {
+  margin-bottom: 1em;
+}
+
 .nav__link{
   text-decoration: none;
   width: fit-content;
@@ -629,6 +607,16 @@ label {
 /* --END HEADER-- */
 
 /* --PROFILE-- */
+
+.theme-changer {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.theme-button {
+  border: none;
+}
 
 .profile__edit {
   position: absolute;
@@ -684,6 +672,88 @@ label {
 }
 
 /* --END ALERTS-- */
+
+/* --DROPDOWNS-- */
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+}
+
+/* --END DROPDOWNS-- */
+
+/* --CALENDAR-- */
+
+.calendar__body {
+  background-color: var(--bg-clr-3);
+  width: 60vw;
+  aspect-ratio: 1.2;
+  border-radius: 5px;
+  row-gap: 2px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 2rem repeat(6, 1fr);
+}
+
+.calendar__header {
+  display: flex;
+  gap: 1em;
+}
+
+.calendar__arrow {
+  height: 3em;
+  width: 3em;
+  fill: var(--bg-clr-accent);
+}
+
+.calendar__day {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  padding: .5em;
+  overflow-y: hidden;
+  color: var(--font-clr-2);
+  background-color: var(--bg-clr-2);
+}
+
+.calendar__day--unactive {
+  color: var(--font-clr-1);
+}
+
+.calendar__day--word {
+  margin-bottom: 1px;
+}
+
+.calendar__task {
+  white-space: nowrap;
+  background-color: var(--bg-clr-accent);
+  color: var(--font-clr-white);
+  border-radius: 5px;
+  overflow: hidden;
+  padding-left: .5em;
+  font-size: min(.8em, 1.8vw);
+}
+
+.task__date {
+  color: var(--font-clr-2);
+}
+
+/* --END CALENDAR-- */
+
+/* --TASKS-- */
+
+.task__label {
+  color: var(--font-clr-3);
+  font-size: 1em;
+}
+
+.task__wrapper {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+/* --END TASKS-- */
 
 @media screen and (max-width: 600px) {
 

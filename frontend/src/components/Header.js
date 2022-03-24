@@ -34,6 +34,9 @@ const Header = ({ onClick }) => {
             <Link to="/"  className={'nav__link ' + (routeMatch('/') ? 'nav__link--active' : '')}>
               <h1>Home</h1>
             </Link>
+            <Link to="/calendar/"  className={'nav__link ' + (routeMatch('/calendar/') ? 'nav__link--active' : '')}>
+              <h1>Calendar</h1>
+            </Link>
           </li>
         </ul>
         <div className='nav__auth flex'>

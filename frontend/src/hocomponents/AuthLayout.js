@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { auth } from '../state/auth/authActions'
+import { darkTheme, lightTheme } from '../utils/themes';
 
 const AuthLayout = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
@@ -11,10 +12,14 @@ const AuthLayout = () => {
   
   useEffect(() => {
     if (dark) {
-      document.documentElement.style.setProperty('--bg-clr-1', "#000000");
+      for (var key of Object.keys(darkTheme)) {
+        document.documentElement.style.setProperty(key, darkTheme[key]);
+      }
     }
     else {
-      document.documentElement.style.setProperty('--bg-clr-1', "#ffffff");
+      for (var key of Object.keys(lightTheme)) {
+        document.documentElement.style.setProperty(key, lightTheme[key]);
+      }
     }
     dispatch(auth())
     

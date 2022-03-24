@@ -1,3 +1,6 @@
 .env
 __pycache__/
 ScheduleItAppFinal.code-workspace
+
+localhost-key.pem
+localhost.pem

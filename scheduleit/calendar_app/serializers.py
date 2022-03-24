@@ -24,6 +24,7 @@ class ExceptionSerializer(serializers.ModelSerializer):
 
 
 class RecurringPatternSerializer(serializers.ModelSerializer):
+    parent_object = CalendarSerializer(many=False)
     class Meta:
         model = ObjectRecurrencePattern
         fields = '__all__'

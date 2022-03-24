@@ -8,7 +8,9 @@ const BackButton = ({ onClick }) => {
     navigate(-1);
   }
   return (
-    <BackButtonIcon onClick={handleClick} className="back-button"/>
+    <button  onClick={handleClick}  className="back-button">
+      <BackButtonIcon/>
+    </button>
   )
 }
 

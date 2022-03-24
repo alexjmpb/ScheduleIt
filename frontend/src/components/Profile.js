@@ -21,7 +21,6 @@ const Profile = ({ onClick }) => {
   const alert = useAlert();
   const navigate = useNavigate();
   const dark = useSelector(state => state.auth.dark);
-  console.log(Boolean(localStorage.getItem('dark')))
 
   const [editing, setEditing] = useState(false);
   const [validators, setValidators] = useState([]);
@@ -104,8 +103,8 @@ const Profile = ({ onClick }) => {
         </h1>
         <div className="theme-changer" style={{marginLeft: 'auto'}}>
           Dark Mode
-          <div className={"theme-button " + (dark ? 'dark' : '')} onClick={e => {dispatch(changeTheme())}}>
-          </div> 
+          <button className={"theme-button " + (dark ? 'dark' : '')} onClick={e => {dispatch(changeTheme())}}>
+          </button> 
         </div>
       </div>
       {
@@ -148,14 +147,14 @@ const Profile = ({ onClick }) => {
                 <h1>Delete User</h1>
               </ModalHeader>
               <ModalBody>
-                Type your password to delete this user.
+                To delete this user you have to type your current password.
                 <Form 
                   validators={deleteValidators} 
                   onChange={handleDeleteChange} 
                   onSubmit={handleDelete}
                 >
                   <Input type="password" name="current_password" placeholder="Current Password"/>
-                  <Submit value="Delete" className="button button-red"/>
+                  <Submit value="Delete" className="button"/>
                 </Form>
               </ModalBody>
           </ModalBox>

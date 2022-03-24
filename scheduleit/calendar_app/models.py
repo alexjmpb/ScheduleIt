@@ -47,6 +47,10 @@ class ObjectRecurrencePattern(models.Model):
         CalendarObject, 
         on_delete=models.CASCADE
     )
+    created_by = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE
+    )
     has_end = models.BooleanField(default=False)
     final_date = models.DateField(default=timezone.now)
     recurrence = models.PositiveIntegerField(default=0)

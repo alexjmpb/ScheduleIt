@@ -44,9 +44,13 @@ class CalendarMonthView(APIView):
         calendar_exception_query = CalendarObjectException.objects.filter(due_date__month=month, due_date__year=year, created_by=request.user)
         calendar_exception_serializer = ExceptionSerializer(calendar_exception_query, many=True)
 
+        recurrence_patterns = ObjectRecurrencePattern.objects.filter(created_by=request.user)
+        recurrence_patterns_serializer = RecurringPatternSerializer(recurrence_patterns, many=True)
+
         objects_list = {
             'calendar_objects': calendar_object_serializer.data,
-            'calendar_exceptions': calendar_exception_serializer.data
+            'calendar_exceptions': calendar_exception_serializer.data,
+            'recurring_patterns': recurrence_patterns_serializer.data
         }
 
         return Response(objects_list)
