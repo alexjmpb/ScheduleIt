@@ -16,7 +16,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.208.1', '127.0.0.1']
 
 
 # Application definition
@@ -142,6 +142,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://192.168.208.1:3000"
 ]
 
 

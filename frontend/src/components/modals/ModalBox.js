@@ -1,4 +1,5 @@
 import React, { Children, useEffect, useState } from 'react'
+import { ReactComponent as CloseIcon } from '../../svg/close-icon.svg'
 import ReactDOM from 'react-dom'
 
 const ModalBox = ({ children, className='modal-parent', open=false, handleClose }) => {
@@ -12,6 +13,10 @@ const ModalBox = ({ children, className='modal-parent', open=false, handleClose 
 		})
 		return el;
 	});
+	
+	const propsChildren = children.map((child) => {
+		return React.cloneElement(child, {handleClose: handleClose, open: open})
+	})
 
 	useEffect(() => {
 		document.body.appendChild(element);
@@ -19,14 +24,14 @@ const ModalBox = ({ children, className='modal-parent', open=false, handleClose 
 			document.body.removeChild(element);
 		}
 	}, []);
-	
+
 	return (
 		open
 		?
 		ReactDOM.createPortal(
 			<div className="modal">
 				<div className='modal__box'>
-					{children}
+					{propsChildren}
 				</div>
 			</div>,
 			element
@@ -36,10 +41,11 @@ const ModalBox = ({ children, className='modal-parent', open=false, handleClose 
 	)
 }
 
-export const ModalHeader = ({ children }) => {
+export const ModalHeader = ({ children, handleClose, onClick }) => {
 	return (
 		<div className="modal__header">
 			{children}
+			<CloseIcon onClick={handleClose} className="modal__close"/>
 		</div>
 	)
 }

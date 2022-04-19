@@ -3,8 +3,10 @@ import moment from 'moment'
 import store from './state/store'
 import { auth, authFail } from './state/auth/authActions'
 
+const host = 'http://127.0.0.1:8000'
+
 export const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/',
+    baseURL: `${host}/api/`,
     timeout: 5000,
     headers: {
         'Authorization': `JWT ${localStorage.getItem('access_token')}`
@@ -12,7 +14,7 @@ export const axiosInstance = axios.create({
 });
 
 export const axiosInstanceUnauth = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/',
+    baseURL: `${host}/api/`,
     timeout: 5000,
 });
 
@@ -24,10 +26,9 @@ axiosInstance.interceptors.request.use(async (config) => {
         const accessData = JSON.parse(atob(accessToken.split('.')[1]));
 
         const isAccessExpired = moment.unix(accessData.exp).isBefore(moment());
-        const isRefreshExpired = moment.unix(refreshData.exp).isBefore(moment());
-
+        
         if (!isAccessExpired) return config;
-        await axios.post('http://127.0.0.1:8000/api/auth/jwt/refresh/', {refresh:refreshToken})
+        await axios.post(`${host}/api/auth/jwt/refresh/`, {refresh:refreshToken})
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access)
                 localStorage.setItem('refresh_token', response.data.refresh)

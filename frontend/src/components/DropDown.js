@@ -11,12 +11,23 @@ const DropDown = ({ children, close, open=false }) => {
     if (open) document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
   }, [open])
-  
+
   return (
-    open ?
-      <div className='dropdown' ref={dropdown}>DropDown {children}</div>
-    :
-    null
+    <div className="dropdown">
+      {
+        
+        children.find(child => child.type?.name === 'DropDownHandler')
+      }
+      {
+        open ?
+          <div className='dropdown__data' ref={dropdown}>
+            {children.filter(child => child.type?.name !== 'DropDownHandler')}
+          </div>
+        :
+          null
+      }
+    </div>
+    
   )
 }
 

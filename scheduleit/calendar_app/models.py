@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from datetime import timedelta, datetime
+from django.core import validators
 User = get_user_model()
 
 
@@ -20,16 +21,19 @@ class AbstractCalendarObject(models.Model):
         on_delete=models.CASCADE
     )
     is_event = models.BooleanField(default=False)
-    start_date = models.DateTimeField(default=timezone.now)
+    start_time = models.TimeField(default=datetime.now().strftime("%X"))
     due_date = models.DateTimeField(default=timezone.now)
 
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         abstract = True
 
     def save(self, *args, **kwargs):
         if not self.is_event:
-            self.start_date = self.due_date
+            self.start_time = self.due_date.time()
         super(AbstractCalendarObject, self).save(*args, **kwargs)
 
 
@@ -38,6 +42,7 @@ class CalendarObject(AbstractCalendarObject):
 
 
 class CalendarObjectException(AbstractCalendarObject):
+    is_deleted = models.BooleanField(default=False)
     occurrence_number = models.PositiveIntegerField(default=0)
     original_object = models.ForeignKey(CalendarObject, on_delete=models.CASCADE)
 
@@ -52,5 +57,5 @@ class ObjectRecurrencePattern(models.Model):
         on_delete=models.CASCADE
     )
     has_end = models.BooleanField(default=False)
-    final_date = models.DateField(default=timezone.now)
-    recurrence = models.PositiveIntegerField(default=0)
+    final_date = models.DateField(default=datetime.now().strftime('%Y-%m-%d'))
+    recurrence = models.PositiveIntegerField(default=1, validators=[validators.MinValueValidator(1)])

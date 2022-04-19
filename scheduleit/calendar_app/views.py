@@ -5,6 +5,8 @@ from datetime import datetime
 from .serializers import CalendarSerializer, ExceptionSerializer, RecurringPatternSerializer
 from .models import CalendarObject, CalendarObjectException, ObjectRecurrencePattern
 from rest_framework import permissions
+from django.db.models import Q
+from dateutil.relativedelta import relativedelta
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
@@ -35,13 +37,31 @@ class RecurringPatternViewSet(viewsets.ModelViewSet):
         return ObjectRecurrencePattern.objects.filter(created_by=self.request.user)
 
 
+def _get_tasks_date_range(month, year):
+    """
+    Takes year and month and returns tuple of date range
+    from one month before to one month after
+    """
+    current_datetime = datetime(year, month, 1)
+    datetime_before = current_datetime - relativedelta(months=1)
+    datetime_after = current_datetime + relativedelta(months=2, days=-1)
+    return (datetime_before, datetime_after)
+
+
 class CalendarMonthView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request, month, year):
-        calendar_object_query = CalendarObject.objects.filter(due_date__month=month, due_date__year=year, created_by=request.user)
+        tasks_date_range = _get_tasks_date_range(month, year)
+        calendar_object_query = CalendarObject.objects.filter(
+            due_date__range=tasks_date_range,
+            created_by=request.user
+        )
         calendar_object_serializer = CalendarSerializer(calendar_object_query, many=True)
 
-        calendar_exception_query = CalendarObjectException.objects.filter(due_date__month=month, due_date__year=year, created_by=request.user)
+        calendar_exception_query = CalendarObjectException.objects.filter(
+            due_date__range=tasks_date_range,
+            created_by=request.user
+        )
         calendar_exception_serializer = ExceptionSerializer(calendar_exception_query, many=True)
 
         recurrence_patterns = ObjectRecurrencePattern.objects.filter(created_by=request.user)

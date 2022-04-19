@@ -1,9 +1,10 @@
 import React from 'react'
 
-const ModalButton = ({children, onClick, func, classNames}) => {
+const ModalButton = (props) => {
+  console.log(props)
   return (
-    <div className={'button modal__button ' + classNames} onClick={func}>
-      <p>{children}</p>
+    <div {...props} className={'button modal__button ' + props.classNames} onClick={props.func}>
+      <p>{props.children}</p>
     </div>
   )
 }

@@ -52,11 +52,8 @@ function App() {
                   <Route path='/logout/' element={<LogoutPage/>}/>
                   <Route path='/profile/' element={<ProfilePage/>}/>
                   <Route path='/change-password/' element={<ChangePasswordPage/>}/>
-                  <Route path='/calendar/' element={<Outlet/>}>
-                    <Route index element={<CalendarPage/>}/>
-
-                  </Route>
-                  <Route path='/calendar/objects/:id/' element={<SingleTaskPage/>}/>
+                  <Route path='/calendar/:year/:month/' element={<CalendarPage/>}/>
+                  <Route path='/calendar/edit/:element/' element={<SingleTaskPage/>}/>
                   <Route path='*' element={<main className='page'>Not found</main>}/>
                 </Route>
                 <Route path="/" element={<AuthLayout/>}>

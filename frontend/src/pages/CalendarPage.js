@@ -1,10 +1,14 @@
 import React from 'react'
-import Calendar from '../components/Calendar'
+import Calendar from '../components/calendar/Calendar'
 
 const CalendarPage = () => {
   return (
     <main className='page'>
-        <Calendar/>
+      <div className="component">
+        <div className="component__body">
+          <Calendar/>
+        </div>
+      </div>
     </main>
   )
 }

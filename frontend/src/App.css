@@ -354,6 +354,7 @@ ul, li {
 }
 
 .modal__box {
+  position: relative;
   background-color: var(--bg-clr-1);
   padding: 1em;
   border-radius: 5px;
@@ -366,10 +367,23 @@ ul, li {
   gap: 1em;
 }
 
+.modal__header {
+  display: flex;
+  align-items: center;
+}
+
 .modal__body {
   display: flex;
   flex-direction: column;
   gap: 1em;
+}
+
+.modal__close {
+  margin-left: auto;
+  height: 2em;
+  width: 2em;
+  fill: var(--bg-clr-accent);
+  cursor: pointer;
 }
 
 .modal__footer {
@@ -676,7 +690,14 @@ label, .form__input {
 /* --DROPDOWNS-- */
 
 .dropdown {
+  position: relative;
+  z-index: 100;
+}
+
+.dropdown__data {
   position: absolute;
+  background-color: var(--bg-clr-1);
+  border-radius: 5px;
   top: 100%;
 }
 
@@ -684,12 +705,16 @@ label, .form__input {
 
 /* --CALENDAR-- */
 
+.calendar {
+
+  width: 100%;
+}
+
 .calendar__body {
   background-color: var(--bg-clr-3);
-  width: 60vw;
-  aspect-ratio: 1.2;
+  width: 100%;
+  height: fit-content;
   border-radius: 5px;
-  row-gap: 2px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 2rem repeat(6, 1fr);
@@ -697,12 +722,18 @@ label, .form__input {
 
 .calendar__header {
   display: flex;
+  font-size: clamp(.8em, 2vw, 1em);
   gap: 1em;
+  align-items: center;
+}
+
+.calendar__arrows {
+  margin-left: auto;
 }
 
 .calendar__arrow {
-  height: 3em;
-  width: 3em;
+  height: min(3em, 10vw);
+  width: min(3em, 10vw);
   fill: var(--bg-clr-accent);
 }
 
@@ -710,35 +741,111 @@ label, .form__input {
   display: flex;
   flex-direction: column;
   gap: .5em;
+  height: clamp(8em, 10vw, 10em);
+  border-bottom: 2px solid var(--bg-clr-3);
   padding: .5em;
-  overflow-y: hidden;
-  color: var(--font-clr-2);
+  overflow: hidden;
   background-color: var(--bg-clr-2);
 }
 
-.calendar__day--unactive {
+.day-link {
+  width: fit-content;
+}
+
+.calendar__number {
+  color: var(--font-clr-2);
+  width: fit-content;
+  margin-right: 0;
+}
+
+.calendar__day--unactive .calendar__number {
   color: var(--font-clr-1);
 }
 
 .calendar__day--word {
   margin-bottom: 1px;
+  height: auto;
 }
 
 .calendar__task {
   white-space: nowrap;
+  width: 100%;
   background-color: var(--bg-clr-accent);
   color: var(--font-clr-white);
   border-radius: 5px;
-  overflow: hidden;
   padding-left: .5em;
-  font-size: min(.8em, 1.8vw);
+  overflow: hidden;
+  margin-left: .5em;
+  font-size: .8em;
 }
 
-.task__date {
-  color: var(--font-clr-2);
+.task-link {
+  width: 100%;
 }
+
+.calendar-small .calendar__body {
+  width: 18em;
+  background-color: transparent;
+  height: 18em;
+  gap: .2em;
+}
+
+.calendar-small .calendar__day {
+  border: none;
+  height: auto;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color .3s;
+}
+
+.calendar-small .calendar__day:hover {
+  background-color: var(--bg-clr-2);
+}
+
+.calendar-small .calendar__day a {
+  width: fit-content;
+}
+
+.calendar-small .task-link {
+  display: none;
+}
+
+.calendar-small .calendar__task {
+  display: none;
+}
+
 
 /* --END CALENDAR-- */
+
+/* --PAGES-- */
+
+.page--homepage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 20em 20em;
+}
+
+/* --END PAGES */
+
+/* --CLOCK-- */
+
+.clock {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: var(--bg-clr-2);
+  position: relative;
+}
+
+.clock__number {
+  position: absolute;
+  transform: translateX(-50%);
+  height: 1em;
+  width: 1em;
+}
+
+/* --END CLOCK-- */
 
 /* --TASKS-- */
 
@@ -763,6 +870,7 @@ label, .form__input {
     flex-basis: auto;
     margin: 0;
     padding: 1em 0;
+    min-height: calc(100vh - var(--nav-bar-size-mobile));
   }
 
   /* --END UTILITY-- */
@@ -828,4 +936,30 @@ label, .form__input {
     flex-basis: 100%;
   }
   /* --END AUTH-- */
+
+  /* --CALENDAR-- */
+
+  .calendar {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  :not(.calendar-small) .calendar__body {
+  } 
+
+  :not(.calendar-small) .calendar__day--word {
+    height: 2em;
+  }
+
+  :not(.calendar-small) .calendar__day {
+    height: 10em;
+    padding: .5em 0;
+  }
+
+  
+  :not(.calendar-small) .calendar__task {
+    margin-left: 0;
+  }
+
+  /* --END CALENDAR-- */
 }

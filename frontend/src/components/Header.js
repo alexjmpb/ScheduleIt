@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { ReactComponent as Logo } from '../svg/scheduleit-logo.svg'
 import { ReactComponent as Menu } from '../svg/menu-icon.svg'
 import LoadingNavAuth from './loading/LoadingNavAuth'
+import moment from 'moment'
 
 const Header = ({ onClick }) => {
   const user = useSelector(state => state.auth.user)
@@ -34,7 +35,9 @@ const Header = ({ onClick }) => {
             <Link to="/"  className={'nav__link ' + (routeMatch('/') ? 'nav__link--active' : '')}>
               <h1>Home</h1>
             </Link>
-            <Link to="/calendar/"  className={'nav__link ' + (routeMatch('/calendar/') ? 'nav__link--active' : '')}>
+          </li>
+          <li>
+            <Link to={currentPath.includes('calendar') && !currentPath.includes('edit') ? currentPath : `/calendar/${moment().format('YYYY/MM/')}`}  className={'nav__link ' + (currentPath.includes('calendar') ? 'nav__link--active' : '')}>
               <h1>Calendar</h1>
             </Link>
           </li>
