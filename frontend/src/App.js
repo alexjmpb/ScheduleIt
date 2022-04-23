@@ -17,9 +17,9 @@ import { ReactComponent as ErrorIcon } from './svg/error-icon.svg'
 import { ReactComponent as CloseIcon } from './svg/close-icon.svg'
 import ProfilePage from './pages/ProfilePage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
-import { useEffect } from 'react';
 import CalendarPage from './pages/CalendarPage';
 import SingleTaskPage from './pages/SingleTaskPage';
+import CreateTaskPage from './pages/CreateTaskPage';
 
 function App() {
   const options = {
@@ -54,6 +54,7 @@ function App() {
                   <Route path='/change-password/' element={<ChangePasswordPage/>}/>
                   <Route path='/calendar/:year/:month/' element={<CalendarPage/>}/>
                   <Route path='/calendar/edit/:element/' element={<SingleTaskPage/>}/>
+                  <Route path='/calendar/create/' element={<CreateTaskPage/>}/>
                   <Route path='*' element={<main className='page'>Not found</main>}/>
                 </Route>
                 <Route path="/" element={<AuthLayout/>}>

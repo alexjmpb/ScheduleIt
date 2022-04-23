@@ -21,9 +21,8 @@ class AbstractCalendarObject(models.Model):
         on_delete=models.CASCADE
     )
     is_event = models.BooleanField(default=False)
-    start_time = models.TimeField(default=datetime.now().strftime("%X"))
-    due_date = models.DateTimeField(default=timezone.now)
-
+    start_date = models.DateTimeField(default=datetime.now())
+    due_date = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         return self.title
@@ -33,7 +32,7 @@ class AbstractCalendarObject(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.is_event:
-            self.start_time = self.due_date.time()
+            self.start_date = self.due_date
         super(AbstractCalendarObject, self).save(*args, **kwargs)
 
 
@@ -58,4 +57,4 @@ class ObjectRecurrencePattern(models.Model):
     )
     has_end = models.BooleanField(default=False)
     final_date = models.DateField(default=datetime.now().strftime('%Y-%m-%d'))
-    recurrence = models.PositiveIntegerField(default=1, validators=[validators.MinValueValidator(1)])
+    recurrence = models.PositiveIntegerField(default=1, validators=[validators.MinValueValidator(1), validators.MaxValueValidator(10000)])

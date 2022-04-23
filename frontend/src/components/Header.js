@@ -37,7 +37,7 @@ const Header = ({ onClick }) => {
             </Link>
           </li>
           <li>
-            <Link to={currentPath.includes('calendar') && !currentPath.includes('edit') ? currentPath : `/calendar/${moment().format('YYYY/MM/')}`}  className={'nav__link ' + (currentPath.includes('calendar') ? 'nav__link--active' : '')}>
+            <Link to={currentPath.includes('calendar') && !currentPath.includes('edit') && !currentPath.includes('create') ? currentPath : `/calendar/${moment().format('YYYY/MM/')}`}  className={'nav__link ' + (currentPath.includes('calendar') ? 'nav__link--active' : '')}>
               <h1>Calendar</h1>
             </Link>
           </li>

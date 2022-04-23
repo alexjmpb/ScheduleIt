@@ -14,8 +14,12 @@ const ModalBox = ({ children, className='modal-parent', open=false, handleClose 
 		return el;
 	});
 	
-	const propsChildren = children.map((child) => {
-		return React.cloneElement(child, {handleClose: handleClose, open: open})
+	const propsChildren = children.map((child, index) => {
+		return React.cloneElement(child, {
+			handleClose: handleClose, 
+			open: open,
+			key: index
+		})
 	})
 
 	useEffect(() => {

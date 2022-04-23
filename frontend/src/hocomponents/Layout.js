@@ -5,6 +5,7 @@ import { auth, getUser } from '../state/auth/authActions';
 import Header from '../components/Header'
 import { useAlert } from 'react-alert';
 import { darkTheme, lightTheme } from '../utils/themes';
+import CreateTaskIcon from '../components/tasks/CreateTaskIcon';
 
 const Layout = () => {
 	const isAuth = useSelector(state => state.auth.isAuth);
@@ -38,6 +39,7 @@ const Layout = () => {
   return (
 		<React.Fragment>
 			<Header/>
+			<CreateTaskIcon/>
 			<Outlet/>
 		</React.Fragment>
   )

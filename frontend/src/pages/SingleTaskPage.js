@@ -1,5 +1,5 @@
 import React from 'react'
-import SingleTask from '../components/SingleTask'
+import SingleTask from '../components/tasks/SingleTask'
 
 const SingleTaskPage = () => {
   return (

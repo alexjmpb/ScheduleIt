@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 const Input = (props) => {
   return (
@@ -10,7 +9,7 @@ const Input = (props) => {
 						<label htmlFor={props.name} className="form__label form__label--date">{props.placeholder}</label>
 				</div>
 				{
-					props.validators != []
+					props.validators !== []
 					&&
 					props.validators[props.name]
 					&&

@@ -100,16 +100,9 @@ const Calendar = ({onDayClick, year, month}) => {
               } 
               key={index}
             >
-              <Link 
-                to={
-                  `/calendar/${calendar[key].moment.format('YYYY')}/${calendar[key].moment.format('MM')}/${calendar[key].moment.format('DD')}/`
-                } 
-                className="link day-link"
-              >
-                <p className="calendar__number">
-                  {calendar[key].moment.format('D')}
-                </p>
-              </Link>
+              <p className="calendar__number">
+                {calendar[key].moment.format('D')}
+              </p>
               {calendar[key].tasks.map((task, taskIndex) =>
                   task?.is_deleted ?
                     null

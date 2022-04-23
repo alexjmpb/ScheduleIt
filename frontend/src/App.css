@@ -18,27 +18,27 @@
     --font-clr-accent--1:  #109C8B;
     --font-clr-white:  white;
     --font-clr-black:  #111111;
-    --font--clr-primary:  #283030;
+    --font-clr-primary:  #283030;
     --font-clr-1:  #5e6d6d;
     --font-clr-2:  #283f41;
     --font-clr-3:  #323535;
     --font-clr-validator:  #c33;
     --bg-clr-unfocus:  #43434359;
     --bg-clr-accent:  #109C8B;
-    --bg-clr-accent--2:  #36b856;
-    --bg-clr-accent--3:  #dd4646;
-    --bg-clr-accent--lighter:  #15BEAA;
+    --bg-clr-accent-2:  #36b856;
+    --bg-clr-accent-3:  #dd4646;
+    --bg-clr-accent-lighter:  #15BEAA;
     --bg-clr-1:  #FFFFFF;
     --bg-clr-2:  #F5F5F5;
     --bg-clr-3:  #ECECEC;
     --border-clr:  #C7C7C7;
     --input-clr:  #FFF;
-    --input-border--clr:  #a5a5a5;
-    --input-border--accent:  #109C8B;
+    --input-border-clr:  #a5a5a5;
+    --input-border-accent:  #109C8B;
     --input-font:  #283030;
-    --filter-svg--1:  invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
-    --filter-svg--2:  invert(100%) sepia(43%) saturate(1032%) hue-rotate(174deg) brightness(104%) contrast(108%);
-    --filter-svg--3:  invert(49%) sepia(68%) saturate(475%) hue-rotate(123deg) brightness(86%) contrast(100%);
+    --filter-svg-1:  invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
+    --filter-svg-2:  invert(100%) sepia(43%) saturate(1032%) hue-rotate(174deg) brightness(104%) contrast(108%);
+    --filter-svg-3:  invert(49%) sepia(68%) saturate(475%) hue-rotate(123deg) brightness(86%) contrast(100%);
 
     --filter-svg-1: invert(2%) sepia(3%) saturate(928%) hue-rotate(315deg) brightness(104%) contrast(91%);
 }
@@ -134,10 +134,23 @@ ul, li {
 }
 
 .component__header {
+  background-color: var(--bg-clr-1);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   display: flex;
   align-items: center;
   gap: 1em;
   position: relative;
+}
+
+.component__header--sticky {
+  align-items: flex-start;
+  position: sticky;
+  padding-top: .5em;
+  padding-bottom: .2em;
+  z-index: 50;
+  top: -1em;
+  left: 0;
 }
 
 .component__body {
@@ -696,9 +709,11 @@ label, .form__input {
 
 .dropdown__data {
   position: absolute;
+  padding: .5em;
   background-color: var(--bg-clr-1);
   border-radius: 5px;
   top: 100%;
+  box-shadow: 1px 1px 2px 2px var(--shadow-clr-2);
 }
 
 /* --END DROPDOWNS-- */
@@ -823,29 +838,15 @@ label, .form__input {
 
 .page--homepage {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  row-gap: 1em;
   grid-template-rows: 20em 20em;
 }
 
+.page--homepage > * {
+  overflow-y: auto;
+}
+
 /* --END PAGES */
-
-/* --CLOCK-- */
-
-.clock {
-  width: 100%;
-  aspect-ratio: 1;
-  background-color: var(--bg-clr-2);
-  position: relative;
-}
-
-.clock__number {
-  position: absolute;
-  transform: translateX(-50%);
-  height: 1em;
-  width: 1em;
-}
-
-/* --END CLOCK-- */
 
 /* --TASKS-- */
 
@@ -860,9 +861,125 @@ label, .form__input {
   align-items: center;
 }
 
+.create-task {
+  position: fixed;
+  z-index: 100;
+  bottom: 1em;
+  right: min(2em, 3vw);
+  fill: var(--font-clr-white);
+  background-color: var(--bg-clr-accent);
+  border-radius: 50%;
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  transition: background-color .2s;
+}
+
+.create-task:hover {
+  background-color: var(--bg-clr-accent-lighter);
+}
+
 /* --END TASKS-- */
 
-@media screen and (max-width: 600px) {
+/* --TASK FORMS-- */
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.task-form__wrapper {
+  display: flex;
+  gap: .5em;
+  width: 100%;
+  align-items: center;
+}
+
+.task-form__input {
+  position: relative;
+  outline: none;
+  border: 2px solid var(--input-border-clr);
+  color: var(--input-font);
+  background-color: var(--input-clr);
+  border-radius: 5px;
+  padding: .3em;
+  width: auto;
+  box-sizing: content-box;
+  transition: border .2s;
+}
+
+.task-form__input:hover,
+.task-form__input:focus {
+  border-color: var(--input-border-accent);
+}
+
+.task-form__input--title {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid var(--input-border-clr);
+  border-radius: 0;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+.task-form__input--validator,
+.task-form__input--validator:hover {
+  border-color: var(--validator-border-clr);
+}
+
+.task-form__validation-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-form__validator {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 110%;
+  z-index: 999;
+  left: 0;
+  border-radius: 5px;
+  transition: opacity .3s, visibility .3s;
+  padding: .5em;
+  color: var(--font-clr-white);
+  font-size: .8em;
+  background-color: var(--validator-border-clr);
+  width: 10em;
+}
+
+.task-form__input:hover + .task-form__validator {
+  opacity: 1;
+  visibility: visible;
+}
+
+.optional-wrapper {
+  width: fit-content;
+  position: relative;
+  background-color: var(--bg-clr-3);
+  padding: .5em;
+  border-radius: 5px;
+}
+
+.optional-wrapper > div:nth-child(2) {
+  margin-left: .5em;
+}
+
+.task-form__delete {
+  position: absolute;
+  right: .5em;
+  bottom: 1em;
+  fill: var(--bg-clr-accent);
+  cursor: pointer;
+}
+
+/* --END TASK FORMS-- */
+
+@media screen and (max-width: 750px) {
 
   /* --UTILITY-- */
 
