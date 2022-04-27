@@ -34,6 +34,7 @@ const Profile = ({ onClick }) => {
     current_password: ''
   })
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [image, setImage] = useState(null);
 
   function handleDeleteClose(e) {
     setDeleteOpen(false);
@@ -42,9 +43,13 @@ const Profile = ({ onClick }) => {
   useEffect(() => {
     setUserInfo({
       username: user?.username,
-      email: user?.email
+      email: user?.email,
     })
-  }, [user])
+  }, [user, editing])
+
+  useEffect(() => {
+    if (!editing) setImage(null)
+  }, [editing])
 
   function handleChange(e) {
     setUserInfo({
@@ -55,9 +60,12 @@ const Profile = ({ onClick }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    let formData = new FormData();
+    formData.append('username', userInfo.username)
+    formData.append('email', userInfo.email)
+    if (userInfo.image) formData.append('image', userInfo?.image[0])
     dispatch(submitRequest())
-    axiosInstance.patch('/auth/users/me/', userInfo)
+    axiosInstance.patch('/auth/users/me/', formData, {headers: {'Content-Type': 'multipart/form-data'}})
       .then((response) => {
         alert.success('Information updated successfully')
         setValidators([])
@@ -94,6 +102,20 @@ const Profile = ({ onClick }) => {
       })
   }
 
+  function handleImageChange(e) {
+    let reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0])
+    setUserInfo({
+      ...userInfo,
+      image: e.target.files
+    })
+    reader.onload = function (event) {
+      setImage(event.target.result)
+      
+    };
+    
+  }
+
   return (
     <div className="component">
       <div className="component__header">
@@ -128,7 +150,10 @@ const Profile = ({ onClick }) => {
                     onSubmit={handleSubmit} 
                     onChange={handleChange}
                   >
-                    <img src={user?.image} className="profile__image image image-round image-xl"/>
+                    <input id="imgInput" type="file" accept="image/*" alt="Login" onChange={handleImageChange} className="img-input"/>
+                    <label htmlFor="imgInput" className="label-img-input">
+                      <img src={image ? image :  user.image} className="profile__image image image-round image-xl" alt="User"/>
+                    </label>
                     <Input placeholder="Username" value={userInfo?.username} name="username"/>
                     <Input placeholder="Email" type="email" value={userInfo?.email} name="email"/>
                     <Submit value="Update" className="button"/>

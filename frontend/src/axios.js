@@ -16,6 +16,9 @@ export const axiosInstance = axios.create({
 export const axiosInstanceUnauth = axios.create({
     baseURL: `${host}/api/`,
     timeout: 5000,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 axiosInstance.interceptors.request.use(async (config) => {

@@ -8,13 +8,14 @@ import { registerSuccess, registerFail, cleanSubmit, submitRequest } from '../st
 import { axiosInstanceUnauth } from '../axios'
 import Submit from '../components/Submit'
 import { useAlert } from 'react-alert'
+import axios from 'axios'
 
 const RegisterPage = () => {
   const [userInfo, setUserInfo] = useState({
     username: '',
     email: '',
     password: '',
-    re_password: ''
+    re_password: '',
   })
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {  
     e.preventDefault();
     dispatch(submitRequest())
-    await axiosInstanceUnauth.post('/auth/users/', userInfo)
+    axiosInstanceUnauth.post('/auth/users/', userInfo)
       .then((response) => {
         dispatch(registerSuccess());
         navigate('/login/');

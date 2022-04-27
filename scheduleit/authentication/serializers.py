@@ -3,16 +3,18 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from rest_framework import validators
 from django.utils.translation import gettext as _
-from djoser.serializers import UserSerializer
+from djoser.serializers import UserSerializer as DjoserUserSerializer
 
-class UserSerializer(UserSerializer):
-    class Meta(UserSerializer.Meta):
+class UserSerializer(DjoserUserSerializer):
+    image = serializers.ImageField(required=False)
+    class Meta(DjoserUserSerializer.Meta):
         model = User
         fields = ['id', 'username', 'email', 'last_login', 'date_joined', 'image']
         read_only_fields = ['last_login', 'date_joined', 'id']
 
 
 class CurrentUserSerializer(UserSerializer):
+    image = serializers.ImageField(required=False)
     class Meta(UserSerializer.Meta):
         model = User
         fields = ['id', 'username', 'email', 'last_login', 'date_joined', 'image']

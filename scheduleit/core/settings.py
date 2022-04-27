@@ -199,6 +199,7 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
         'user': 'authentication.serializers.UserSerializer',
+        'user_create': 'authentication.serializers.UserSerializer',
         'current_user': 'authentication.serializers.CurrentUserSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },

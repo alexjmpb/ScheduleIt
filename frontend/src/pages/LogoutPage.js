@@ -10,13 +10,15 @@ const LogoutPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  useEffect(async () => {
-    try {
+  useEffect(() => {
+    async function blacklist() {
       await axiosInstance.post('/auth/jwt/blacklist/', {refresh: localStorage.getItem('refresh_token')})
     }
-    catch(e) {
-      console.log(e)
-    }
+    blacklist()
+      .catch((e) => {
+        console.log(e)
+      })
+    
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     dispatch(logout())

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { auth } from '../state/auth/authActions'
 import { darkTheme, lightTheme } from '../utils/themes';
+import { ReactComponent as Github } from '../svg/github.svg'
+import { Link } from 'react-router-dom';
 
 const AuthLayout = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
@@ -27,7 +29,12 @@ const AuthLayout = () => {
   })
   
   return (
-    <Outlet/>
+    <React.Fragment>
+      <Outlet/>
+      <a href="https://github.com/alexjmpb/scheduleit/" target="_blank" rel="noreferrer">
+        <Github className="github"/>
+      </a>
+    </React.Fragment>
   )
 }
 

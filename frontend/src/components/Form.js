@@ -1,5 +1,4 @@
 import React, { cloneElement, isValidElement } from 'react'
-import { useSelector } from 'react-redux'
 
 const Form = ({ children, onSubmit, validators, onChange }) => {
   return (
@@ -13,7 +12,7 @@ const Form = ({ children, onSubmit, validators, onChange }) => {
                   let clonedChild = cloneElement(child, {
                     validators: validators, 
                     key: index, 
-                    onChange: onChange
+                    onChange: child.props?.onChange ? child.props.onChange : onChange
                   })
                   return clonedChild
                 }
@@ -27,19 +26,19 @@ const Form = ({ children, onSubmit, validators, onChange }) => {
             &&
             <ul className="validators">
               {
-                validators['non_field_errors']
+                (validators['non_field_errors']
                 &&
                 validators['non_field_errors'].map((validator, index) => 
                   <li className='validator' key={index}>
                     {validator}
                   </li>
-                )
+                ))
                 ||
-                validators['detail']
+                (validators['detail']
                 &&
                 <li className="validator">
                   {validators['detail']}
-                </li>
+                </li>)
               }
             </ul>
           }

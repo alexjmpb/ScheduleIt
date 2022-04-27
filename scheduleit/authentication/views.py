@@ -7,11 +7,13 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from djoser.views import UserViewSet as DjoserViewSet
 from rest_framework import throttling 
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 class ResetThrottle(throttling.UserRateThrottle):
     rate = '5/day'
 
 class UserViewSet(DjoserViewSet):
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     def get_throttles(self):
         if self.action == 'reset_password':
             self.throttle_classes = [ResetThrottle]

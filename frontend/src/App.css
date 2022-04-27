@@ -45,7 +45,7 @@
 
 .App {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 h1,
@@ -81,6 +81,7 @@ ul, li {
   border: 1px solid var(--border-clr);
   width: var(--img-size, 5em);
   height: var(--img-size, 5em);
+  object-fit:cover;
 }
 
 .image-round {
@@ -515,6 +516,31 @@ label, .form__input {
   background-color: var(--bg-clr-validator);
 }
 
+.img-input {
+  visibility: hidden;
+  position: absolute;
+}
+
+.label-img-input {
+  position: relative;
+  
+}
+
+.label-img-input:hover::after {
+  content: 'Change profile image';
+  background-color: var(--shadow-clr-2);
+  position: absolute;
+  display: grid;
+  place-content: center;
+  color: var(--font-clr-white);
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  width: 99%;
+  height: 99%;
+  border-radius: 50%;
+}
+
 /* --END FORMS-- */
 
 /* --AUTH-- */
@@ -524,7 +550,7 @@ label, .form__input {
   padding: 1em;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   order: 2;
   box-shadow: -2px 0px 4px 4px var(--shadow-clr-1);
